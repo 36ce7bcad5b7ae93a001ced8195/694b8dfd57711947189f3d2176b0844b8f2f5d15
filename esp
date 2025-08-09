@@ -1,5 +1,5 @@
-getgenv().ESP_MOD = {}
-getgenv().ESP_MOD.ESPcache = {};
+local ESP_MOD = {}
+ESP_MOD.ESPcache = {};
 local players = game:GetService('Players')
 local camera = workspace.CurrentCamera;
 local lp = players.LocalPlayer
@@ -292,4 +292,4 @@ function ESP_MOD.SetESP()
         end
     end
 end
-
+return ESP_MOD
