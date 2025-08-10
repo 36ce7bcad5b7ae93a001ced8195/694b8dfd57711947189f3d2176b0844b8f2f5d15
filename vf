@@ -1,4 +1,3 @@
-getgenv().debugTeTraX = true
 getgenv().PR = {};
 PR.scriptv = function(vdu, selectedcolor, scriptv, cacheman)
     local a;
