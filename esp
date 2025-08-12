@@ -144,19 +144,16 @@ function ESP_MOD.isPlayerBehindWall(targetPlayer)
         return false
     end
 end
+
 function ESP_MOD.removeEsp(player)
     local esp = ESP_MOD.ESPcache[player];
-    if not esp then
-        return;
-    end
+    if not esp then return end
     for key, drawing in pairs(esp) do
         if drawing.Remove then
             drawing:Remove();
-        elseif (key == "boxLines") then
+        elseif (key == "boxLines" or key == "box3DLines") then
             for _, line in ipairs(drawing) do
-                if line.Remove then
-                    line:Remove();
-                end
+                if line.Remove then line:Remove() end
             end
         end
     end
