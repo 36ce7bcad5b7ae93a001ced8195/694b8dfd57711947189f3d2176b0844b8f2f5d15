@@ -37,15 +37,89 @@ function ESP_MOD.createEsp(player)
             Outline = true,
             Center = true
         }),
+        healthText = ESP_MOD.createSet("Text", {
+            Color = Color3.new(1, 1, 1),
+            Size = 12,
+            Outline = true,
+            Center = true
+        }),
         tracer = ESP_MOD.createSet("Line", {
             Thickness = ESP_MOD.ESP_SETTINGS.TracerThickness,
             Color = ESP_MOD.ESP_SETTINGS.TracerColor,
             Transparency = 1
         }),
+        box3DLines = {},
         boxLines = {}
     };
     ESP_MOD.ESPcache[player] = esp;
 end
+
+function ESP_MOD.create3DBoxLines(esp)
+    for i = 1, 12 do -- 12 lines for a 3D box
+        esp.box3DLines[i] = ESP_MOD.createSet("Line", {
+            Thickness = 1,
+            Color = ESP_MOD.ESP_SETTINGS.BoxColor,
+            Transparency = 1,
+            Visible = false
+        })
+    end
+end
+
+function ESP_MOD.update3DBox(esp, rootPart, humanoid,plrf)
+    if not rootPart then return end
+    local player = players:GetPlayerFromCharacter(rootPart.Parent)
+    local isTargetPlayer = (player == plrf)
+    local highlightColor = Color3.new(250/255, 33/255, 17/255) -- Proper Color3 format
+    local height = humanoid and (humanoid.HipHeight + humanoid.Parent:FindFirstChild("Head").Size.Y * 0.5) or 4.3
+    local width = 1.6 * (height / 4.3) -- Scale width proportionally
+    local depth = 1.6 * (height / 4.3) -- Scale depth proportionally
+    local size = Vector3.new(width+1.1, height+1.1, depth+1.1)
+    local corners = {
+        rootPart.CFrame * CFrame.new(size.X, size.Y, size.Z).Position,
+        rootPart.CFrame * CFrame.new(-size.X, size.Y, size.Z).Position,
+        rootPart.CFrame * CFrame.new(-size.X, -size.Y, size.Z).Position,
+        rootPart.CFrame * CFrame.new(size.X, -size.Y, size.Z).Position,
+        rootPart.CFrame * CFrame.new(size.X, size.Y, -size.Z).Position,
+        rootPart.CFrame * CFrame.new(-size.X, size.Y, -size.Z).Position,
+        rootPart.CFrame * CFrame.new(-size.X, -size.Y, -size.Z).Position,
+        rootPart.CFrame * CFrame.new(size.X, -size.Y, -size.Z).Position
+    }
+
+    local screenCorners = {}
+    local allOnScreen = true
+    for i, corner in ipairs(corners) do
+        local screenPoint, onScreen = camera:WorldToViewportPoint(corner)
+        screenCorners[i] = Vector2.new(screenPoint.X, screenPoint.Y)
+        if not onScreen then allOnScreen = false end
+    end
+
+    if allOnScreen then
+        if #esp.box3DLines == 0 then
+            ESP_MOD.create3DBoxLines(esp)
+        end
+        local connections = {
+            {1, 2}, {2, 3}, {3, 4}, {4, 1},
+            {5, 6}, {6, 7}, {7, 8}, {8, 5},
+            {1, 5}, {2, 6}, {3, 7}, {4, 8} 
+        }
+        for i, connection in ipairs(connections) do
+            local line = esp.box3DLines[i]
+            line.From = screenCorners[connection[1]]
+            line.To = screenCorners[connection[2]]
+            line.Visible = true
+            line.Color = isTargetPlayer and highlightColor or ESP_MOD.ESP_SETTINGS.BoxColor
+        end
+    else
+        for _, line in ipairs(esp.box3DLines) do
+            line.Visible = false
+        end
+    end
+    if screenCorners[1] and screenCorners[2] then
+        return Vector2.new((screenCorners[1].X + screenCorners[2].X) / 2, (screenCorners[1].Y + screenCorners[2].Y) / 2)
+    end
+    return nil
+end
+
 function ESP_MOD.isPlayerBehindWall(targetPlayer)
     local localCharacter = lp.Character
     local targetCharacter = targetPlayer.Character
@@ -206,6 +280,36 @@ function ESP_MOD.updateEsp(func)
                                 line.Visible = true
                             end
                             esp.box.Visible = false
+                        elseif ESP_MOD.ESP_SETTINGS.BoxType == "3D" then
+                            esp.box.Visible = false
+                            for _, line in ipairs(esp.boxLines) do line:Remove() end
+                            ESP_MOD.update3DBox(esp, rootPart, humanoid,plrf)
+                            if ESP_MOD.ESP_SETTINGS.ShowHealth and head then
+                                local headPos, headOnScreen = camera:WorldToViewportPoint(head.Position)
+                                if headOnScreen then
+                                    local healthPercentage = humanoid.Health / humanoid.MaxHealth
+                                    local healthColor = ESP_MOD.ESP_SETTINGS.HealthLowColor:Lerp(
+                                        ESP_MOD.ESP_SETTINGS.HealthHighColor, healthPercentage)
+                                    local barWidth = 40
+                                    local barHeight = 4
+                                    local barYOffset = 20
+                                    esp.health.Visible = true
+                                    esp.health.From = Vector2.new(headPos.X - (barWidth / 2), headPos.Y - barYOffset)
+                                    esp.health.To = Vector2.new(headPos.X - (barWidth / 2) + (barWidth * healthPercentage), headPos.Y - barYOffset)
+                                    esp.health.Color = healthColor
+                                    esp.health.Thickness = barHeight
+                                    esp.healthText.Visible = true
+                                    esp.healthText.Text = math.floor(healthPercentage * 100) .. "%"
+                                    esp.healthText.Position = Vector2.new(headPos.X, headPos.Y - barYOffset - 15)  -- Adjust -15 to move text closer/farther
+                                    esp.healthText.Color = healthColor
+                                else
+                                    esp.health.Visible = false
+                                    esp.healthText.Visible = false
+                                end
+                            else
+                                esp.health.Visible = false
+                                esp.healthText.Visible = false
+                            end
                         end
                     else
                         esp.box.Visible = false
