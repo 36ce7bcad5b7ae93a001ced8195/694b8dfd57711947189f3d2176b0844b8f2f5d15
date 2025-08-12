@@ -93,7 +93,7 @@ function ESP_MOD.updateEsp(func)
     local localPlayer = lp
     for player, esp in pairs(ESP_MOD.ESPcache) do
         local isTargetPlayer = (player == plrf)
-        local h0 = Color3.new(250/255, 33/255, 17/255) -- Proper Color3 format
+        local h0 = ESP_MOD.ESP_SETTINGS.HighlightColor or Color3.new(250/255, 33/255, 17/255) -- Proper Color3 format
         local character, team = player.Character, player.Team
         if character and (not ESP_MOD.ESP_SETTINGS.Teamcheck or (team and team ~= localPlayer.Team)) then
             local rootPart = character:FindFirstChild("HumanoidRootPart")
