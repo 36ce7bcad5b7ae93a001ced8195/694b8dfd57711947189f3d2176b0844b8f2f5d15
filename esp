@@ -92,6 +92,8 @@ function ESP_MOD.updateEsp(func)
     local plrf = func()
     local localPlayer = lp
     for player, esp in pairs(ESP_MOD.ESPcache) do
+        local isTargetPlayer = (player == plrf)
+        local highlightColor = Color3.new(250/255, 33/255, 17/255) -- Proper Color3 format
         local character, team = player.Character, player.Team
         if character and (not ESP_MOD.ESP_SETTINGS.Teamcheck or (team and team ~= localPlayer.Team)) then
             local rootPart = character:FindFirstChild("HumanoidRootPart")
@@ -113,7 +115,7 @@ function ESP_MOD.updateEsp(func)
                         esp.name.Visible = true
                         esp.name.Text = player.Name
                         esp.name.Position = Vector2.new(boxSize.X / 2 + boxPosition.X, boxPosition.Y - 16)
-                        esp.name.Color = (plrf == player) and Color3.new(250, 33, 17) or ESP_MOD.ESP_SETTINGS.NameColor
+                        esp.name.Color = isTargetPlayer and highlightColor or ESP_MOD.ESP_SETTINGS.NameColor
                     else
                         esp.name.Visible = false
                     end
@@ -121,8 +123,7 @@ function ESP_MOD.updateEsp(func)
                         if ESP_MOD.ESP_SETTINGS.BoxType == "2D" then
                             esp.box.Size = boxSize
                             esp.box.Position = boxPosition
-                            esp.box.Color = (plrf == player) and Color3.new(250, 33, 17) or
-                                                ESP_MOD.ESP_SETTINGS.BoxColor
+                            esp.box.Color = isTargetPlayer and highlightColor or ESP_MOD.ESP_SETTINGS.NameColor
                             esp.box.Visible = true
                             for _, line in ipairs(esp.boxLines) do
                                 line:Remove()
@@ -241,8 +242,7 @@ function ESP_MOD.updateEsp(func)
                         else
                             tracerY = camera.ViewportSize.Y
                         end
-                        esp.tracer.Color = (plrf == player) and Color3.new(250, 33, 17) or
-                                               ESP_MOD.ESP_SETTINGS.TracerColor
+                        esp.tracer.Color = isTargetPlayer and highlightColor or ESP_MOD.ESP_SETTINGS.TracerColor
                         esp.tracer.Transparency = 1
                         esp.tracer.Thickness = 2
                         if ESP_MOD.ESP_SETTINGS.Teamcheck and player.TeamColor == localPlayer.TeamColor then
