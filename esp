@@ -361,28 +361,43 @@ function ESP_MOD.updateEsp(func)
                     end
                 else
                     for _, drawing in pairs(esp) do
-                        drawing.Visible = false
+                        if drawing ~= esp.boxLines and drawing ~= esp.box3DLines then
+                            drawing.Visible = false
+                        end
                     end
                     for _, line in ipairs(esp.boxLines) do
                         line:Remove()
+                    end
+                    for _, line in ipairs(esp.box3DLines) do
+                        line.Visible = false
                     end
                     esp.boxLines = {}
                 end
             else
                 for _, drawing in pairs(esp) do
-                    drawing.Visible = false
+                    if drawing ~= esp.boxLines and drawing ~= esp.box3DLines then
+                        drawing.Visible = false
+                    end
                 end
                 for _, line in ipairs(esp.boxLines) do
                     line:Remove()
+                end
+                for _, line in ipairs(esp.box3DLines) do
+                    line.Visible = false
                 end
                 esp.boxLines = {}
             end
         else
             for _, drawing in pairs(esp) do
-                drawing.Visible = false
+                if drawing ~= esp.boxLines and drawing ~= esp.box3DLines then
+                    drawing.Visible = false
+                end
             end
             for _, line in ipairs(esp.boxLines) do
                 line:Remove()
+            end
+            for _, line in ipairs(esp.box3DLines) do
+                line.Visible = false
             end
             esp.boxLines = {}
         end
