@@ -269,8 +269,7 @@ function ESP_MOD.updateEsp(func)
                             boxLines[16].To = Vector2.new(boxPosition.X + boxSize.X, boxPosition.Y + boxSize.Y)
 
                             for _, line in ipairs(boxLines) do
-                                line.Color = (plrf == player) and Color3.new(250, 33, 17) or
-                                                 ESP_MOD.ESP_SETTINGS.BoxColor
+                                line.Color = isTargetPlayer and h0 or ESP_MOD.ESP_SETTINGS.BoxColor
                             end
 
                             for _, line in ipairs(boxLines) do
