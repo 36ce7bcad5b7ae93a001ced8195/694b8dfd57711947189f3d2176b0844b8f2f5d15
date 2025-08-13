@@ -7359,8 +7359,8 @@ end
 
 local av
 if an.User.Enabled then local
-aw, ax=game.Players:GetUserThumbnailAsync(
-an.User.Anonymous and 1 or game.Players.LocalPlayer.UserId,
+aw, ax=cacheman"Players":GetUserThumbnailAsync(
+an.User.Anonymous and 1 or cacheman"Players".LocalPlayer.UserId,
 Enum.ThumbnailType.HeadShot,
 Enum.ThumbnailSize.Size420x420
 )
@@ -7423,7 +7423,7 @@ AutomaticSize="XY",
 BackgroundTransparency=1,
 },{
 af("TextLabel",{
-Text=an.User.Anonymous and"Anonymous"or game.Players.LocalPlayer.DisplayName,
+Text=an.User.Anonymous and"Anonymous"or cacheman"Players".LocalPlayer.DisplayName,
 TextSize=17,
 ThemeTag={
 TextColor3="Text",
@@ -7436,7 +7436,7 @@ TextTruncate="AtEnd",
 TextXAlignment="Left",
 }),
 af("TextLabel",{
-Text=an.User.Anonymous and"@anonymous"or"@"..game.Players.LocalPlayer.Name,
+Text=an.User.Anonymous and"@anonymous"or"@"..cacheman"Players".LocalPlayer.Name,
 TextSize=15,
 TextTransparency=.6,
 ThemeTag={
