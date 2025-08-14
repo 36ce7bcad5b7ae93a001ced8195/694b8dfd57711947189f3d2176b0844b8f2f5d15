@@ -4110,4 +4110,4 @@ mainLoader.scriptv = function(vdu, selectedcolor, scriptv, cacheman)
 	return aa;
 end;
 
-return 
+return mainLoader
