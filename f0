@@ -14,7 +14,7 @@ mainLoader.scriptv = function(vdu, selectedcolor, scriptv, cacheman)
 			local e = cacheman("UserInputService");
 			local f = cacheman("TweenService");
 			local g = cacheman("LocalizationService");
-			local h = scriptv('loadstring')(game:HttpGetAsync("https://raw.githubusercontent.com/Footagesus/Icons/main/Main.lua"))();
+			local h = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Footagesus/Icons/main/Main.lua"))();
 			h.SetIconsType("lucide");
 			local i = {Font="rbxassetid://12187365364",Localization=nil,CanDraggable=true,Theme=nil,Themes=nil,WindUI=nil,Objects={},LocalizationObjects={},FontObjects={},Language=string.match(g.SystemLocaleId, "^[a-z]+"),Request=(http_request or (syn and syn.request) or request),DefaultProperties={ScreenGui={ResetOnSpawn=false,ZIndexBehavior="Sibling"},CanvasGroup={BorderSizePixel=0,BackgroundColor3=Color3.new(1, 1, 1)},Frame={BorderSizePixel=0,BackgroundColor3=Color3.new(1, 1, 1)},TextLabel={BackgroundColor3=Color3.new(1, 1, 1),BorderSizePixel=0,Text="",RichText=true,TextColor3=Color3.new(1, 1, 1),TextSize=14},TextButton={BackgroundColor3=Color3.new(1, 1, 1),BorderSizePixel=0,Text="",AutoButtonColor=false,TextColor3=Color3.new(1, 1, 1),TextSize=14},TextBox={BackgroundColor3=Color3.new(1, 1, 1),BorderColor3=Color3.new(0, 0, 0),ClearTextOnFocus=false,Text="",TextColor3=Color3.new(0, 0, 0),TextSize=14},ImageLabel={BackgroundTransparency=1,BackgroundColor3=Color3.new(1, 1, 1),BorderSizePixel=0},ImageButton={BackgroundColor3=Color3.new(1, 1, 1),BorderSizePixel=0,AutoButtonColor=false},UIListLayout={SortOrder="LayoutOrder"},ScrollingFrame={ScrollBarImageTransparency=1,BorderSizePixel=0},VideoFrame={BorderSizePixel=0}},Colors={Red="#e53935",Orange="#f57c00",Green="#43a047",Blue="#039be5",White="#ffffff",Grey="#484848"}};
 			i.Signals={dropdown={}}
@@ -1134,7 +1134,7 @@ mainLoader.scriptv = function(vdu, selectedcolor, scriptv, cacheman)
 				end
 				if ag.KeySystem.URL then
 					ae("Get key", "key", function()
-						scriptv('setclipboard')(ag.KeySystem.URL);
+						setclipboard(ag.KeySystem.URL);
 					end, "Secondary", aw.Frame);
 				end
 				if ag.KeySystem.API then
@@ -2280,6 +2280,18 @@ mainLoader.scriptv = function(vdu, selectedcolor, scriptv, cacheman)
 						am.UIElements.MenuCanvas.Size = UDim2.fromOffset(am.UIElements.MenuCanvas.AbsoluteSize.X, am.UIElements.UIListLayout.AbsoluteContentSize.Y + (aj.MenuPadding * 2));
 					end
 				end
+				-- function UpdatePosition()
+				-- 	local ao = am.UIElements.Dropdown;
+				-- 	local ap = am.UIElements.MenuCanvas;
+				-- 	local aq = ((ae.ViewportSize.Y - (ao.AbsolutePosition.Y + ao.AbsoluteSize.Y)) - aj.MenuPadding) - 54;
+				-- 	local ar = ap.AbsoluteSize.Y + aj.MenuPadding;
+				-- 	local as = -54;
+				-- 	if (aq < ar) then
+				-- 		as = (ar - aq) - 54;
+				-- 	end
+				-- 	ap.Position = UDim2.new(0, ao.AbsolutePosition.X + ao.AbsoluteSize.X, 0, ((ao.AbsolutePosition.Y + ao.AbsoluteSize.Y) - as) + aj.MenuPadding);
+				-- end
+
 				function UpdatePosition()
 					local ao = am.UIElements.Dropdown
 					local ap = am.UIElements.MenuCanvas
@@ -2321,6 +2333,7 @@ mainLoader.scriptv = function(vdu, selectedcolor, scriptv, cacheman)
 					for as, at in next, ap do
 						local isSelected = (am.Multi and table.find(am.Value or {}, at)) or (am.Value == at);
 						local au = {Name = at, Selected = false, UIElements = {}}
+						
 						au.UIElements.TabItem = af.NewRoundFrame(aj.MenuCorner - aj.MenuPadding, "Squircle", {
 							Size = UDim2.new(1, 0, 0, 34),
 							ImageTransparency = 1,
@@ -2372,7 +2385,7 @@ mainLoader.scriptv = function(vdu, selectedcolor, scriptv, cacheman)
 								icon.AnchorPoint = Vector2.new(0, 0.5);
 								icon.Position = UDim2.new(0, 0, 0.5, 0);
 								icon.BackgroundTransparency = 1;
-								icon.Parent = frame
+								icon.Parent = frame--au.UIElements.TabItem;
 								af.AddThemeObject(icon, {
 									ImageColor3 = "Text"
 								})
@@ -2380,7 +2393,7 @@ mainLoader.scriptv = function(vdu, selectedcolor, scriptv, cacheman)
 								textLabel.Text = at
 								textLabel.TextXAlignment = "Left"
 								textLabel.FontFace = Font.new(af.Font, Enum.FontWeight.Regular)
-								textLabel.TextColor3 = Color3.new(1, 1, 1)
+								textLabel.TextColor3 = Color3.new(1, 1, 1) -- Default color, adjust as needed
 								textLabel.TextSize = 15
 								textLabel.BackgroundTransparency = 1
 								textLabel.TextTransparency = 0.4
@@ -2393,6 +2406,7 @@ mainLoader.scriptv = function(vdu, selectedcolor, scriptv, cacheman)
 									TextColor3 = "Text",
 									BackgroundColor3 = "Text"
 								})
+								
 								return frame
 							end)()
 						}, true)
@@ -2421,7 +2435,7 @@ mainLoader.scriptv = function(vdu, selectedcolor, scriptv, cacheman)
 							end)
 						end
 
-						au.UIElements.TabItem.MouseButton1Click, function()
+						af.AddSignal(au.UIElements.TabItem.MouseButton1Click, function()
 							if am.Multi then
 								if not au.Selected then
 									au.Selected = true
@@ -2470,7 +2484,7 @@ mainLoader.scriptv = function(vdu, selectedcolor, scriptv, cacheman)
 							end
 							am:Display()
 							Callback()
-						end
+						end)
 
 						RecalculateCanvasSize()
 						RecalculateListSize()
@@ -2500,7 +2514,7 @@ mainLoader.scriptv = function(vdu, selectedcolor, scriptv, cacheman)
 				RecalculateListSize();
 				am.Open = function(ao)
 					if an then
-				        UpdatePosition(); -- Add this line
+				        UpdatePosition();
 						am.UIElements.Menu.Visible = true;
 						am.UIElements.MenuCanvas.Visible = true;
 						am.UIElements.MenuCanvas.Active = true;
@@ -4086,6 +4100,5 @@ mainLoader.scriptv = function(vdu, selectedcolor, scriptv, cacheman)
 	end;
 	return aa;
 end;
-
 
 return mainLoader
