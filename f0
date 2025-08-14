@@ -2280,18 +2280,6 @@ mainLoader.scriptv = function(vdu, selectedcolor, scriptv, cacheman)
 						am.UIElements.MenuCanvas.Size = UDim2.fromOffset(am.UIElements.MenuCanvas.AbsoluteSize.X, am.UIElements.UIListLayout.AbsoluteContentSize.Y + (aj.MenuPadding * 2));
 					end
 				end
-				-- function UpdatePosition()
-				-- 	local ao = am.UIElements.Dropdown;
-				-- 	local ap = am.UIElements.MenuCanvas;
-				-- 	local aq = ((ae.ViewportSize.Y - (ao.AbsolutePosition.Y + ao.AbsoluteSize.Y)) - aj.MenuPadding) - 54;
-				-- 	local ar = ap.AbsoluteSize.Y + aj.MenuPadding;
-				-- 	local as = -54;
-				-- 	if (aq < ar) then
-				-- 		as = (ar - aq) - 54;
-				-- 	end
-				-- 	ap.Position = UDim2.new(0, ao.AbsolutePosition.X + ao.AbsoluteSize.X, 0, ((ao.AbsolutePosition.Y + ao.AbsoluteSize.Y) - as) + aj.MenuPadding);
-				-- end
-
 				function UpdatePosition()
 					local ao = am.UIElements.Dropdown
 					local ap = am.UIElements.MenuCanvas
@@ -2333,22 +2321,18 @@ mainLoader.scriptv = function(vdu, selectedcolor, scriptv, cacheman)
 					for as, at in next, ap do
 						local isSelected = (am.Multi and table.find(am.Value or {}, at)) or (am.Value == at);
 						local au = {Name = at, Selected = false, UIElements = {}}
-						
-						-- Create tab item with af.NewRoundFrame (kept as original)
 						au.UIElements.TabItem = af.NewRoundFrame(aj.MenuCorner - aj.MenuPadding, "Squircle", {
 							Size = UDim2.new(1, 0, 0, 34),
 							ImageTransparency = 1,
 							Parent = am.UIElements.Menu.Frame.ScrollingFrame,
 							ImageColor3 = Color3.new(1, 1, 1)
 						}, {
-							-- Inner frame with Instance.new replacements
 							af.NewRoundFrame(aj.MenuCorner - aj.MenuPadding, "SquircleOutline", {
 								Size = UDim2.new(1, 0, 1, 0),
 								ImageColor3 = Color3.new(1, 1, 1),
 								ImageTransparency = 1,
 								Name = "Highlight"
 							}, {
-								-- Replaced ag("UIGradient") with Instance.new
 								(function()
 									local gradient = Instance.new("UIGradient")
 									gradient.Rotation = 80
@@ -2365,19 +2349,16 @@ mainLoader.scriptv = function(vdu, selectedcolor, scriptv, cacheman)
 									return gradient
 								end)()
 							}),
-							-- Replaced ag("Frame") with Instance.new
 							(function()
 								local frame = Instance.new("Frame")
 								frame.Size = UDim2.new(1, 0, 1, 0)
 								frame.BackgroundTransparency = 1
 								
-								-- Replaced ag("UIPadding")
 								local padding = Instance.new("UIPadding")
 								padding.PaddingLeft = UDim.new(0, aj.TabPadding)
 								padding.PaddingRight = UDim.new(0, aj.TabPadding)
 								padding.Parent = frame
 								
-								-- Replaced ag("UICorner")
 								local corner = Instance.new("UICorner")
 								corner.CornerRadius = UDim.new(0, aj.MenuCorner - aj.MenuPadding)
 								corner.Parent = frame
@@ -2391,17 +2372,15 @@ mainLoader.scriptv = function(vdu, selectedcolor, scriptv, cacheman)
 								icon.AnchorPoint = Vector2.new(0, 0.5);
 								icon.Position = UDim2.new(0, 0, 0.5, 0);
 								icon.BackgroundTransparency = 1;
-								icon.Parent = frame--au.UIElements.TabItem;
+								icon.Parent = frame
 								af.AddThemeObject(icon, {
 									ImageColor3 = "Text"
 								})
-								-- Replaced ag("TextLabel")
 								textLabel = Instance.new("TextLabel")
 								textLabel.Text = at
 								textLabel.TextXAlignment = "Left"
 								textLabel.FontFace = Font.new(af.Font, Enum.FontWeight.Regular)
-								-- Note: ThemeTag implementation would need to be handled separately
-								textLabel.TextColor3 = Color3.new(1, 1, 1) -- Default color, adjust as needed
+								textLabel.TextColor3 = Color3.new(1, 1, 1)
 								textLabel.TextSize = 15
 								textLabel.BackgroundTransparency = 1
 								textLabel.TextTransparency = 0.4
@@ -2414,7 +2393,6 @@ mainLoader.scriptv = function(vdu, selectedcolor, scriptv, cacheman)
 									TextColor3 = "Text",
 									BackgroundColor3 = "Text"
 								})
-								
 								return frame
 							end)()
 						}, true)
@@ -2426,7 +2404,6 @@ mainLoader.scriptv = function(vdu, selectedcolor, scriptv, cacheman)
 						end
 
 						if au.Selected then
-							-- Removed tweens - set properties directly
 							au.UIElements.TabItem.ImageTransparency = 0.95
 							au.UIElements.TabItem.Highlight.ImageTransparency = 0.75
 							au.UIElements.TabItem.Frame.ImageLabel.ImageTransparency = 0.1;
@@ -2444,7 +2421,7 @@ mainLoader.scriptv = function(vdu, selectedcolor, scriptv, cacheman)
 							end)
 						end
 
-						af.AddSignal(au.UIElements.TabItem.MouseButton1Click, function()
+						au.UIElements.TabItem.MouseButton1Click, function()
 							if am.Multi then
 								if not au.Selected then
 									au.Selected = true
@@ -2493,7 +2470,7 @@ mainLoader.scriptv = function(vdu, selectedcolor, scriptv, cacheman)
 							end
 							am:Display()
 							Callback()
-						end)
+						end
 
 						RecalculateCanvasSize()
 						RecalculateListSize()
@@ -4110,3 +4087,5 @@ mainLoader.scriptv = function(vdu, selectedcolor, scriptv, cacheman)
 	return aa;
 end;
 
+
+return mainLoader
