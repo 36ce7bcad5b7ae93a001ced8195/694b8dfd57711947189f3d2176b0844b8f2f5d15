@@ -2293,17 +2293,18 @@ mainLoader.scriptv = function(vdu, selectedcolor, scriptv, cacheman)
 				-- end
 
 				function UpdatePosition()
-					local ao = am.UIElements.Dropdown
-					local ap = am.UIElements.MenuCanvas
+					local ao = am.UIElements.Dropdown;
+					local ap = am.UIElements.MenuCanvas;
 					if ap.Visible then
 						return 
 					end
-					ap.Position = UDim2.new(
-						0, 
-						ao.AbsolutePosition.X + ao.AbsoluteSize.X,  -- Right of dropdown
-						0, 
-						ao.AbsolutePosition.Y + ao.AbsoluteSize.Y + aj.MenuPadding  -- Below dropdown
-					)
+					local aq = ((ae.ViewportSize.Y - (ao.AbsolutePosition.Y + ao.AbsoluteSize.Y)) - aj.MenuPadding) - 54;
+					local ar = ap.AbsoluteSize.Y + aj.MenuPadding;
+					local as = -54;
+					if (aq < ar) then
+						as = (ar - aq) - 54;
+					end
+					ap.Position = UDim2.new(0, ao.AbsolutePosition.X + ao.AbsoluteSize.X, 0, ((ao.AbsolutePosition.Y + ao.AbsoluteSize.Y) - as) + aj.MenuPadding);
 				end
 				am.Display = function(ao)
 					local ap = am.Values;
