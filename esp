@@ -70,23 +70,22 @@ function ESP_MOD.isPlayerBehindWall(targetPlayer)
         return false
     end
 end
+
+
 function ESP_MOD.removeEsp(player)
-    local esp = ESP_MOD.ESPcache[player];
-    if not esp then
-        return;
-    end
+    local esp = ESP_MOD.ESPcache[player]
+    if not esp then return end
     for key, drawing in pairs(esp) do
-        if drawing.Remove then
-            drawing:Remove();
-        elseif (key == "boxLines") then
+        if key == "boxLines" then
             for _, line in ipairs(drawing) do
-                if line.Remove then
-                    line:Remove();
-                end
+                if line and line.Remove then line:Remove() end
             end
+        elseif drawing and drawing.Remove then
+            drawing:Remove()
         end
     end
-    ESP_MOD.ESPcache[player] = nil;
+
+    ESP_MOD.ESPcache[player] = nil
 end
 function ESP_MOD.updateEsp(func)
     local plrf = func()
