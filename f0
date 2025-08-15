@@ -287,7 +287,7 @@ mainLoader.scriptv = function(vdu, selectedcolor, scriptv, cacheman)
 					local F = "WindUI/" .. x .. "/Assets/." .. z .. "-" .. p .. ".png";
 					local G, H = pcall(function()
 						task.spawn(function()
-							if not isfile(F) then
+							if not scriptv('isfile')(F) then
 								local G = i.Request({Url=m,Method="GET"}).Body;
 								writefile(F, G);
 							end
@@ -1582,7 +1582,7 @@ mainLoader.scriptv = function(vdu, selectedcolor, scriptv, cacheman)
 				ab.Path = "WindUI/" .. tostring(ab.Folder) .. "/config/";
 				local ae = ab:AllConfigs();
 				for af, ag in next, ae do
-					if isfile(ag .. ".json") then
+					if scriptv('isfile')(ag .. ".json") then
 						ab.Configs[ag] = readfile(ag .. ".json");
 					end
 				end
@@ -1613,7 +1613,7 @@ mainLoader.scriptv = function(vdu, selectedcolor, scriptv, cacheman)
 					writefile(ae.Path, aj);
 				end;
 				ae.Load = function(af)
-					if not isfile(ae.Path) then
+					if not scriptv('isfile')(ae.Path) then
 						return false, "Config file does not exist";
 					end
 					local ag, ah = pcall(function()
@@ -3483,7 +3483,7 @@ mainLoader.scriptv = function(vdu, selectedcolor, scriptv, cacheman)
 							return aB;
 						end
 						local aB = an.Folder .. "/Assets/." .. SanitizeFilename(aA) .. ".webm";
-						if not isfile(aB) then
+						if not scriptv('isfile')(aB) then
 							local aC, aD = pcall(function()
 								local aC = game:HttpGet(aA);
 								writefile(aB, aC);
@@ -4053,7 +4053,7 @@ mainLoader.scriptv = function(vdu, selectedcolor, scriptv, cacheman)
 			end
 			local aw = ap.Folder .. "/" .. av .. ".key";
 			if (not ap.KeySystem.API and ap.KeySystem.SaveKey and ap.Folder) then
-				if isfile(aw) then
+				if scriptv('isfile')(aw) then
 					local ax = readfile(aw);
 					local ay = ((type(ap.KeySystem.Key) == "table") and table.find(ap.KeySystem.Key, ax)) or (tostring(ap.KeySystem.Key) == tostring(ax));
 					if ay then
@@ -4064,7 +4064,7 @@ mainLoader.scriptv = function(vdu, selectedcolor, scriptv, cacheman)
 				else
 					loadKeysystem();
 				end
-			elseif isfile(aw) then
+			elseif scriptv('isfile')(aw) then
 				local ax = readfile(aw);
 				local ay = false;
 				for az, aA in next, ap.KeySystem.API do
