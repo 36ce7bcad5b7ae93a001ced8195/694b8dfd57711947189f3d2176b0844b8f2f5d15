@@ -1678,6 +1678,17 @@ mainLoader.scriptv = function(vdu, selectedcolor, scriptv, cacheman)
 				local ak = ac("Frame", {Size=UDim2.new(0, 1, 1, 0),Position=UDim2.new(0, 36, 0.5, 0),AnchorPoint=Vector2.new(0, 0.5),BackgroundColor3=Color3.new(1, 1, 1),BackgroundTransparency=0.9});
 				local al = ac("Frame", {Size=UDim2.new(0, 0, 0, 0),Position=UDim2.new(0.5, 0, 0, 28),AnchorPoint=Vector2.new(0.5, 0.5),Parent=af.Parent,BackgroundTransparency=1,Active=true,Visible=false});
 				local am = ac("TextButton", {Size=UDim2.new(0, 0, 0, 44),AutomaticSize="X",Parent=al,Active=false,BackgroundTransparency=0.25,ZIndex=99,BackgroundColor3=Color3.new(0, 0, 0)}, {ac("UICorner", {CornerRadius=UDim.new(1, 0)}),ac("UIStroke", {Thickness=1,ApplyStrokeMode="Border",Color=Color3.new(1, 1, 1),Transparency=0}, {ac("UIGradient", {Color=ColorSequence.new(Color3.fromHex("40c9ff"), Color3.fromHex("e81cff"))})}),aj,ak,ac("UIListLayout", {Padding=UDim.new(0, 4),FillDirection="Horizontal",VerticalAlignment="Center"}),ac("TextButton", {AutomaticSize="XY",Active=true,BackgroundTransparency=1,Size=UDim2.new(0, 0, 0, 36),BackgroundColor3=Color3.new(1, 1, 1)}, {ac("UICorner", {CornerRadius=UDim.new(1, -4)}),ah,ac("UIListLayout", {Padding=UDim.new(0, af.UIPadding),FillDirection="Horizontal",VerticalAlignment="Center"}),ai,ac("UIPadding", {PaddingLeft=UDim.new(0, 12),PaddingRight=UDim.new(0, 12)})}),ac("UIPadding", {PaddingLeft=UDim.new(0, 4),PaddingRight=UDim.new(0, 4)})});
+
+                if am~= nil and am.UIStroke and am.UIStroke.UIGradient then
+                    ab.AddSignal(cacheman('RunService').RenderStepped,function(deltaTime)
+                        local currentColorSequence = selectedcolor()
+                        local rotationSpeed = 45 
+                        local scaledRotation = rotationSpeed * deltaTime    
+						local currentRotation = (am.UIStroke.UIGradient.Rotation + scaledRotation) % 360
+                        am.UIStroke.UIGradient.Color = currentColorSequence
+                        am.UIStroke.UIGradient.Rotation = currentRotation                
+                    end)
+                end
 				ag.Button = am;
 				ag.SetIcon = function(an, ao)
 					if ah then
@@ -3929,9 +3940,8 @@ mainLoader.scriptv = function(vdu, selectedcolor, scriptv, cacheman)
 	ag.Themes = af;
 	local aj = (cacheman("Players") and cacheman("Players").LocalPlayer) or nil;
 	aa.Themes = af;
-	local ak = function(d) return d end --protectgui or (syn and syn.protect_gui) or function()
-	--end;
-	local al = game:GetService('CoreGui') --(gethui and gethui()) or game.CoreGui;
+	local ak = protectgui or (syn and syn.protect_gui) or function()end;
+	local al = (gethui and gethui()) or cacheman('CoreGui')
 	aa.ScreenGui = ah("ScreenGui", {Name="WindUI",Parent=al,IgnoreGuiInset=true,ScreenInsets="None"}, {ah("UIScale", {Scale=aa.Scale}),ah("Folder", {Name="Window"}),ah("Folder", {Name="KeySystem"}),ah("Folder", {Name="Popups"}),ah("Folder", {Name="ToolTips"})});
 	aa.NotificationGui = ah("ScreenGui", {Name="WindUI/Notifications",Parent=al,IgnoreGuiInset=true});
 	aa.DropdownGui = ah("ScreenGui", {Name="WindUI/Dropdowns",Parent=al,IgnoreGuiInset=true});
