@@ -1,4 +1,3 @@
-
 local mainLoader = {};
 mainLoader.scriptv = function(vdu, selectedcolor, scriptv, cacheman)
 	local a;
@@ -4079,7 +4078,7 @@ mainLoader.scriptv = function(vdu, selectedcolor, scriptv, cacheman)
 			local al = a.load("u");
 			local am = a.load("v");
 			return function(an)
-				local ao = {Title=(an.Title or "UI Library"),Author=an.Author,Icon=an.Icon,IconThemed=an.IconThemed,Folder=an.Folder,Resizable=an.Resizable,Background=an.Background,BackgroundImageTransparency=(an.BackgroundImageTransparency or 0),User=(an.User or {}),Size=an.Size,MinSize=(an.MinSize or Vector2.new(560, 350)),MaxSize=(an.MaxSize or Vector2.new(850, 560)),ToggleKey=an.ToggleKey,Transparent=(an.Transparent or false),HideSearchBar=an.HideSearchBar,ScrollBarEnabled=(an.ScrollBarEnabled or false),SideBarWidth=(an.SideBarWidth or 200),Acrylic=(an.Acrylic or false),NewElements=(an.NewElements or false),HidePanelBackground=(an.HidePanelBackground or false),Position=UDim2.new(0.5, 0, 0.5, 0),IconSize=22,UICorner=16,UIPadding=14,UIElements={},CanDropdown=true,Closed=false,Parent=an.Parent,Destroyed=false,IsFullscreen=false,CanResize=false,IsOpenButtonEnabled=true,ConfigManager=nil,AcrylicPaint=nil,CurrentTab=nil,TabModule=nil,OnOpenCallback=nil,OnCloseCallback=nil,OnDestroyCallback=nil,Gap=5,TopBarButtons={},AllElements={}};
+				local ao = {Title=(an.Title or "UI Library"),Author=an.Author,Icon=an.Icon,IconThemed=an.IconThemed,Folder=an.Folder,Resizable=an.Resizable,Background=an.Background,BackgroundImageTransparency=(an.BackgroundImageTransparency or 0),User=(an.User or {}),Size=an.Size,MinSize=(an.MinSize or Vector2.new(560, 350)),MaxSize=(an.MaxSize or Vector2.new(850, 560)),ToggleKey=an.ToggleKey or Enum.KeyCode.G,Transparent=(an.Transparent or false),HideSearchBar=an.HideSearchBar,ScrollBarEnabled=(an.ScrollBarEnabled or false),SideBarWidth=(an.SideBarWidth or 200),Acrylic=(an.Acrylic or false),NewElements=(an.NewElements or false),HidePanelBackground=(an.HidePanelBackground or false),Position=UDim2.new(0.5, 0, 0.5, 0),IconSize=22,UICorner=16,UIPadding=14,UIElements={},CanDropdown=true,Closed=false,Parent=an.Parent,Destroyed=false,IsFullscreen=false,CanResize=false,IsOpenButtonEnabled=true,ConfigManager=nil,AcrylicPaint=nil,CurrentTab=nil,TabModule=nil,OnOpenCallback=nil,OnCloseCallback=nil,OnDestroyCallback=nil,Gap=5,TopBarButtons={},AllElements={}};
 				local ap = ao.Size or UDim2.new(0, 580, 0, 460);
 				ao.Size = UDim2.new(ap.X.Scale, math.clamp(ap.X.Offset, ao.MinSize.X, ao.MaxSize.X), ap.Y.Scale, math.clamp(ap.Y.Offset, ao.MinSize.Y, ao.MaxSize.Y));
 				if (ao.HideSearchBar ~= false) then
