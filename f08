@@ -453,7 +453,7 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 							Padding = UDim.new(0, 5.5) 
 						}),
 						e("UIPadding", {
-							PaddingLeft = UDim.new(0, -40) 
+							PaddingLeft = i.Icon and UDim.new(0, -40) or UDim.new(0,0)
 						})					
 					});
 					for _, buttonData in next, i.Buttons do
@@ -4602,6 +4602,9 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 					end
 				end;
 				an.Open = function(i)
+                    if frameEdit and uiGlow ~= false then
+                        frameEdit.Visible = true;
+                    end					
 					task.spawn(function()
 						if an.OnOpenCallback then
 							task.spawn(function()
@@ -4645,6 +4648,9 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 				end;
 				an.Close = function(i)
 					local j = {};
+                    if frameEdit then
+                        frameEdit.Visible = false;
+                    end					
 					if an.OnCloseCallback then
 						task.spawn(function()
 							ae.SafeCallback(an.OnCloseCallback);
