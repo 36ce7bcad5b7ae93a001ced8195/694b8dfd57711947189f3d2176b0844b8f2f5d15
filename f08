@@ -3941,7 +3941,7 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 		end;
 		a.R = function()
 			cacheman("UserInputService");
-			local aa = game.Players.LocalPlayer:GetMouse();
+			local aa = cacheman('Players').LocalPlayer:GetMouse();
 			local ac = a.load("a");
 			local ae = ac.New;
 			local af = ac.Tween;
@@ -4381,10 +4381,10 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 				local av;
 				if an.User then
 					local function getUserThumb()
-						local aw, ax = game.Players:GetUserThumbnailAsync((an.User.Anonymous and 1) or game.Players.LocalPlayer.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420);
+						local aw, ax = cacheman('Players'):GetUserThumbnailAsync((an.User.Anonymous and 1) or cacheman('Players').LocalPlayer.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420);
 						return aw;
 					end
-					av = af("TextButton", {Size=UDim2.new(0, an.UIElements.SideBarContainer.AbsoluteSize.X - (an.UIPadding / 2), 0, 42 + an.UIPadding),Position=UDim2.new(0, an.UIPadding / 2, 1, -(an.UIPadding / 2)),AnchorPoint=Vector2.new(0, 1),BackgroundTransparency=1,Visible=(an.User.Enabled or false)}, {ae.NewRoundFrame(an.UICorner - (an.UIPadding / 2), "SquircleOutline", {Size=UDim2.new(1, 0, 1, 0),ThemeTag={ImageColor3="Text"},ImageTransparency=1,Name="Outline"}, {af("UIGradient", {Rotation=78,Color=ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 255, 255)),ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 255))}),Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0, 0.1),NumberSequenceKeypoint.new(0.5, 1),NumberSequenceKeypoint.new(1, 0.1)})})}),ae.NewRoundFrame(an.UICorner - (an.UIPadding / 2), "Squircle", {Size=UDim2.new(1, 0, 1, 0),ThemeTag={ImageColor3="Text"},ImageTransparency=1,Name="UserIcon"}, {af("ImageLabel", {Image=getUserThumb(),BackgroundTransparency=1,Size=UDim2.new(0, 42, 0, 42),ThemeTag={BackgroundColor3="Text"},BackgroundTransparency=0.93}, {af("UICorner", {CornerRadius=UDim.new(1, 0)})}),af("Frame", {AutomaticSize="XY",BackgroundTransparency=1}, {af("TextLabel", {Text=((an.User.Anonymous and "Anonymous") or game.Players.LocalPlayer.DisplayName),TextSize=17,ThemeTag={TextColor3="Text"},FontFace=Font.new(ae.Font, Enum.FontWeight.SemiBold),AutomaticSize="Y",BackgroundTransparency=1,Size=UDim2.new(1, -27, 0, 0),TextTruncate="AtEnd",TextXAlignment="Left",Name="DisplayName"}),af("TextLabel", {Text=((an.User.Anonymous and "anonymous") or game.Players.LocalPlayer.Name),TextSize=15,TextTransparency=0.6,ThemeTag={TextColor3="Text"},FontFace=Font.new(ae.Font, Enum.FontWeight.Medium),AutomaticSize="Y",BackgroundTransparency=1,Size=UDim2.new(1, -27, 0, 0),TextTruncate="AtEnd",TextXAlignment="Left",Name="UserName"}),af("UIListLayout", {Padding=UDim.new(0, 4),HorizontalAlignment="Left"})}),af("UIListLayout", {Padding=UDim.new(0, an.UIPadding),FillDirection="Horizontal",VerticalAlignment="Center"}),af("UIPadding", {PaddingLeft=UDim.new(0, an.UIPadding / 2),PaddingRight=UDim.new(0, an.UIPadding / 2)})})});
+					av = af("TextButton", {Size=UDim2.new(0, an.UIElements.SideBarContainer.AbsoluteSize.X - (an.UIPadding / 2), 0, 42 + an.UIPadding),Position=UDim2.new(0, an.UIPadding / 2, 1, -(an.UIPadding / 2)),AnchorPoint=Vector2.new(0, 1),BackgroundTransparency=1,Visible=(an.User.Enabled or false)}, {ae.NewRoundFrame(an.UICorner - (an.UIPadding / 2), "SquircleOutline", {Size=UDim2.new(1, 0, 1, 0),ThemeTag={ImageColor3="Text"},ImageTransparency=1,Name="Outline"}, {af("UIGradient", {Rotation=78,Color=ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 255, 255)),ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 255))}),Transparency=NumberSequence.new({NumberSequenceKeypoint.new(0, 0.1),NumberSequenceKeypoint.new(0.5, 1),NumberSequenceKeypoint.new(1, 0.1)})})}),ae.NewRoundFrame(an.UICorner - (an.UIPadding / 2), "Squircle", {Size=UDim2.new(1, 0, 1, 0),ThemeTag={ImageColor3="Text"},ImageTransparency=1,Name="UserIcon"}, {af("ImageLabel", {Image=getUserThumb(),BackgroundTransparency=1,Size=UDim2.new(0, 42, 0, 42),ThemeTag={BackgroundColor3="Text"},BackgroundTransparency=0.93}, {af("UICorner", {CornerRadius=UDim.new(1, 0)})}),af("Frame", {AutomaticSize="XY",BackgroundTransparency=1}, {af("TextLabel", {Text=((an.User.Anonymous and "Anonymous") or cacheman('Players').LocalPlayer.DisplayName),TextSize=17,ThemeTag={TextColor3="Text"},FontFace=Font.new(ae.Font, Enum.FontWeight.SemiBold),AutomaticSize="Y",BackgroundTransparency=1,Size=UDim2.new(1, -27, 0, 0),TextTruncate="AtEnd",TextXAlignment="Left",Name="DisplayName"}),af("TextLabel", {Text=((an.User.Anonymous and "anonymous") or cacheman('Players').LocalPlayer.Name),TextSize=15,TextTransparency=0.6,ThemeTag={TextColor3="Text"},FontFace=Font.new(ae.Font, Enum.FontWeight.Medium),AutomaticSize="Y",BackgroundTransparency=1,Size=UDim2.new(1, -27, 0, 0),TextTruncate="AtEnd",TextXAlignment="Left",Name="UserName"}),af("UIListLayout", {Padding=UDim.new(0, 4),HorizontalAlignment="Left"})}),af("UIListLayout", {Padding=UDim.new(0, an.UIPadding),FillDirection="Horizontal",VerticalAlignment="Center"}),af("UIPadding", {PaddingLeft=UDim.new(0, an.UIPadding / 2),PaddingRight=UDim.new(0, an.UIPadding / 2)})})});
 					an.User.Enable = function(aw)
 						an.User.Enabled = true;
 						ag(an.UIElements.SideBarContainer, 0.25, {Size=UDim2.new(0, an.SideBarWidth, 1, -94 - (an.UIPadding * 2))}, Enum.EasingStyle.Quint, Enum.EasingDirection.Out):Play();
@@ -4401,8 +4401,8 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 						end
 						an.User.Anonymous = ax;
 						av.UserIcon.ImageLabel.Image = getUserThumb();
-						av.UserIcon.Frame.DisplayName.Text = (ax and "Anonymous") or game.Players.LocalPlayer.DisplayName;
-						av.UserIcon.Frame.UserName.Text = (ax and "anonymous") or game.Players.LocalPlayer.Name;
+						av.UserIcon.Frame.DisplayName.Text = (ax and "Anonymous") or cacheman('Players').LocalPlayer.DisplayName;
+						av.UserIcon.Frame.UserName.Text = (ax and "anonymous") or cacheman('Players').LocalPlayer.Name;
 					end;
 					if an.User.Enabled then
 						an.User:Enable();
