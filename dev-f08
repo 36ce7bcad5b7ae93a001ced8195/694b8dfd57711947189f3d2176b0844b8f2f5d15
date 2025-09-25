@@ -1,7 +1,7 @@
-local a;
-local isStudio =game:GetService("RunService"):IsStudio() 
 local main = {}
 main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
+	local a;
+	local isStudio =game:GetService("RunService"):IsStudio() 
 	a = {cache={},load=function(b)
 		if not a.cache[b] then
 			a.cache[b] = {c=a[b]()};
