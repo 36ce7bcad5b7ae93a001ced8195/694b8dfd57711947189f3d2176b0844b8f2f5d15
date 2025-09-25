@@ -5046,21 +5046,13 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 	local an = protectgui or (syn and syn.protect_gui) or function()
 	end;
 	local ao = isStudio and am:WaitForChild('PlayerGui') or (gethui and gethui()) or game.CoreGui;
-	aa.ScreenGui = aj("ScreenGui", {Name="WindUI",Parent=ao,IgnoreGuiInset=true,ScreenInsets="None"}, {aj("UIScale", {Scale=aa.Scale}),aj("Folder", {Name="Window"}),aj("Folder", {Name="KeySystem"}),aj("Folder", {Name="Popups"}),aj("Folder", {Name="ToolTips"})});
+	aa.ScreenGui = aj("ScreenGui", {Name="WindUI",Parent=ao,IgnoreGuiInset=true,ScreenInsets="None"}, {a.load('a').AddUIScale(aj("UIScale", {Scale=aa.Scale})),aj("Folder", {Name="Window"}),aj("Folder", {Name="KeySystem"}),aj("Folder", {Name="Popups"}),aj("Folder", {Name="ToolTips"})});
 	aa.NotificationGui = aj("ScreenGui", {Name="WindUI/Notifications",Parent=ao,IgnoreGuiInset=true});
 	aa.DropdownGui = aj("ScreenGui", {Name="WindUI/Dropdowns",Parent=ao,IgnoreGuiInset=true});
 	an(aa.ScreenGui);
 	an(aa.NotificationGui);
 	an(aa.DropdownGui);
 	ai.Init(aa);
-
-	aa.ScreenGui.UIScale:GetPropertyChangedSignal('Scale'):Connect(function()
-		local scale =aa.ScreenGui.UIScale.Scale
-		local v0 = a.load('a').GetScalingObjects()
-		for l,v in next,v0 do 
-			l.Scale = scale
-		end
-	end)	
 	math.clamp(aa.TransparencyValue, 0, 1);
 	local ap = aa.NotificationModule.Init(aa.NotificationGui);
 	aa.Notify = function(aq, ar)
@@ -5107,6 +5099,12 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 	aa.Localization = function(aq, ar)
 		return aa.LocalizationModule:New(ar, ai);
 	end;
+	aa.SetUIScale = function(scale)
+		local v0 = a.load('a').GetScalingObjects()
+		for l,v in next,v0 do 
+			l.Scale = scale
+		end		
+	end
 	aa.SetLanguage = function(aq, ar)
 		if ai.Localization then
 			return ai.SetLanguage(ar);
