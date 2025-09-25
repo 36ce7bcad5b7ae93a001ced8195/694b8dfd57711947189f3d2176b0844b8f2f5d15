@@ -2670,14 +2670,21 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 				end
 				al.AnchorPoint = Vector2.new(1, 0);
 				al.Position = UDim2.new(1, 0, 0, 0);
-				ai.Set = function(an, ao, ap)
-					if aj then
-						am:Set(ao, ap);
-						ak = ao;
-						ai.Value = ao;
-					end
-				end;
-				ai:Set(ak, false);
+				-- ai.Set = function(ao, ap)
+				-- 	if aj then
+				-- 		am:Set(ao, ap);
+				-- 		ak = ao;
+				-- 		ai.Value = ao;
+				-- 	end
+				-- end;
+                ai.Set = function(an, ao)
+                    if aj then
+                        am:Set(ao);
+                        ak = ao;
+                        ai.Value = ao;
+                    end
+                end;				
+				ai:Set(ak);
 				aa.AddSignal(ai.ToggleFrame.UIElements.Main.MouseButton1Click, function()
 					ai:Set(not ak);
 				end);
