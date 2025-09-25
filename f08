@@ -5100,8 +5100,7 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 		return aa.LocalizationModule:New(ar, ai);
 	end;
 	aa.SetUIScale = function(scale)
-		if typeof(scale) ~= 'number' then scale = 1 end
-		if scale == 0 or scale > 1 or scale == nil then scale = 1 end
+		if typeof(scale) ~= 'number' then warn(scale) return end
 		local v0 = a.load('a').GetScalingObjects()
 		for l,v in next,v0 do 
 			l.Scale = scale
