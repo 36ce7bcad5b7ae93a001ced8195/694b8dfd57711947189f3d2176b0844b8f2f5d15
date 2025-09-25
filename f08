@@ -18,7 +18,7 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 			local h=loadstring(game:HttpGetAsync"https://raw.githubusercontent.com/Footagesus/Icons/main/Main-v2.lua")()
 			h.SetIconsType("lucide");
 			local i;
-			local j = {Font="rbxassetid://12187365364",Localization=nil,CanDraggable=true,Theme=nil,Themes=nil,Signals={},Connections={},Objects={},LocalizationObjects={},FontObjects={},Language=string.match(g.SystemLocaleId, "^[a-z]+"),Request=(scriptv('http_request') or (syn and syn.request) or scriptv('request')),DefaultProperties={ScreenGui={ResetOnSpawn=false,ZIndexBehavior="Sibling"},CanvasGroup={BorderSizePixel=0,BackgroundColor3=Color3.new(1, 1, 1)},Frame={BorderSizePixel=0,BackgroundColor3=Color3.new(1, 1, 1)},TextLabel={BackgroundColor3=Color3.new(1, 1, 1),BorderSizePixel=0,Text="",RichText=true,TextColor3=Color3.new(1, 1, 1),TextSize=14},TextButton={BackgroundColor3=Color3.new(1, 1, 1),BorderSizePixel=0,Text="",AutoButtonColor=false,TextColor3=Color3.new(1, 1, 1),TextSize=14},TextBox={BackgroundColor3=Color3.new(1, 1, 1),BorderColor3=Color3.new(0, 0, 0),ClearTextOnFocus=false,Text="",TextColor3=Color3.new(0, 0, 0),TextSize=14},ImageLabel={BackgroundTransparency=1,BackgroundColor3=Color3.new(1, 1, 1),BorderSizePixel=0},ImageButton={BackgroundColor3=Color3.new(1, 1, 1),BorderSizePixel=0,AutoButtonColor=false},UIListLayout={SortOrder="LayoutOrder"},ScrollingFrame={ScrollBarImageTransparency=1,BorderSizePixel=0},VideoFrame={BorderSizePixel=0}},Colors={Red="#e53935",Orange="#f57c00",Green="#43a047",Blue="#039be5",White="#ffffff",Grey="#484848"}};
+			local j = {Font="rbxassetid://12187365364",ScaleObjects={},Localization=nil,CanDraggable=true,Theme=nil,Themes=nil,Signals={},Connections={},Objects={},LocalizationObjects={},FontObjects={},Language=string.match(g.SystemLocaleId, "^[a-z]+"),Request=(scriptv('http_request') or (syn and syn.request) or scriptv('request')),DefaultProperties={ScreenGui={ResetOnSpawn=false,ZIndexBehavior="Sibling"},CanvasGroup={BorderSizePixel=0,BackgroundColor3=Color3.new(1, 1, 1)},Frame={BorderSizePixel=0,BackgroundColor3=Color3.new(1, 1, 1)},TextLabel={BackgroundColor3=Color3.new(1, 1, 1),BorderSizePixel=0,Text="",RichText=true,TextColor3=Color3.new(1, 1, 1),TextSize=14},TextButton={BackgroundColor3=Color3.new(1, 1, 1),BorderSizePixel=0,Text="",AutoButtonColor=false,TextColor3=Color3.new(1, 1, 1),TextSize=14},TextBox={BackgroundColor3=Color3.new(1, 1, 1),BorderColor3=Color3.new(0, 0, 0),ClearTextOnFocus=false,Text="",TextColor3=Color3.new(0, 0, 0),TextSize=14},ImageLabel={BackgroundTransparency=1,BackgroundColor3=Color3.new(1, 1, 1),BorderSizePixel=0},ImageButton={BackgroundColor3=Color3.new(1, 1, 1),BorderSizePixel=0,AutoButtonColor=false},UIListLayout={SortOrder="LayoutOrder"},ScrollingFrame={ScrollBarImageTransparency=1,BorderSizePixel=0},VideoFrame={BorderSizePixel=0}},Colors={Red="#e53935",Orange="#f57c00",Green="#43a047",Blue="#039be5",White="#ffffff",Grey="#484848"}};
 			j.Init = function(l)
 				i = l;
 			end;
@@ -32,6 +32,13 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 				j.Connections[name]=p
 				return p;
 			end;		
+			j.AddUIScale = function(l,m)
+				j.ScaleObjects[l] = {Object=l,Properties=m};
+				return l;
+			end
+			j.GetScalingObjects = function()
+				return j.ScaleObjects
+			end			
 			j.DisconnectFrom = function(inst)
 				if inst and j.Connections[inst] then
 					j.Connections[inst]:Disconnect()
@@ -2957,7 +2964,7 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 				ag("ImageLabel", {Image=af.Icon("chevrons-up-down")[1],ImageRectOffset=af.Icon("chevrons-up-down")[2].ImageRectPosition,ImageRectSize=af.Icon("chevrons-up-down")[2].ImageRectSize,Size=UDim2.new(0, 18, 0, 18),Position=UDim2.new(1, -12, 0.5, 0),ThemeTag={ImageColor3="Icon"},AnchorPoint=Vector2.new(1, 0.5),Parent=an.UIElements.Dropdown.Frame});
 				an.UIElements.UIListLayout = ag("UIListLayout", {Padding=UDim.new(0, ak.MenuPadding),FillDirection="Vertical"});
 				an.UIElements.Menu = af.NewRoundFrame(ak.MenuCorner, "Squircle", {ThemeTag={ImageColor3="Background"},ImageTransparency=1,Size=UDim2.new(1, 0, 1, 0),AnchorPoint=Vector2.new(1, 0),Position=UDim2.new(1, 0, 0, 0)}, {ag("UIPadding", {PaddingTop=UDim.new(0, ak.MenuPadding),PaddingLeft=UDim.new(0, ak.MenuPadding),PaddingRight=UDim.new(0, ak.MenuPadding),PaddingBottom=UDim.new(0, ak.MenuPadding)}),ag("UIListLayout", {FillDirection="Vertical",Padding=UDim.new(0, ak.MenuPadding)}),ag("Frame", {BackgroundTransparency=1,Size=UDim2.new(1, 0, 1, an.SearchBarEnabled and (-ak.MenuPadding - ak.SearchBarHeight)),ClipsDescendants=true,LayoutOrder=999}, {ag("UICorner", {CornerRadius=UDim.new(0, ak.MenuCorner - ak.MenuPadding)}),ag("ScrollingFrame", {Size=UDim2.new(1, 0, 1, 0),ScrollBarThickness=0,ScrollingDirection="Y",AutomaticCanvasSize="Y",CanvasSize=UDim2.new(0, 0, 0, 0),BackgroundTransparency=1,ScrollBarImageTransparency=1}, {an.UIElements.UIListLayout})})});
-				an.UIElements.MenuCanvas = ag("Frame", {Size=UDim2.new(0, an.MenuWidth, 0, 300),BackgroundTransparency=1,Position=UDim2.new(-10, 0, -10, 0),Visible=false,Active=false,Parent=am.WindUI.DropdownGui,AnchorPoint=Vector2.new(1, 0)}, {an.UIElements.Menu,ag("UISizeConstraint", {MinSize=Vector2.new(170, 0)})});
+				an.UIElements.MenuCanvas = ag("Frame", {Size=UDim2.new(0, an.MenuWidth, 0, 300),BackgroundTransparency=1,Position=UDim2.new(-10, 0, -10, 0),Visible=false,Active=false,Parent=am.WindUI.DropdownGui,AnchorPoint=Vector2.new(1, 0)}, {an.UIElements.Menu,ag("UISizeConstraint", {MinSize=Vector2.new(170, 0)}),aj.AddUIScale(ag("UIScale", {Scale = 1}))});
 				an.Lock = function(ap)
 					an.Locked = true;
 					ao = false;
@@ -5046,6 +5053,14 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 	an(aa.NotificationGui);
 	an(aa.DropdownGui);
 	ai.Init(aa);
+
+	aa.ScreenGui.UIScale:GetPropertyChangedSignal('Scale'):Connect(function()
+		local scale =aa.ScreenGui.UIScale.Scale
+		local v0 = a.load('a').GetScalingObjects()
+		for l,v in next,v0 do 
+			l.Scale = scale
+		end
+	end)	
 	math.clamp(aa.TransparencyValue, 0, 1);
 	local ap = aa.NotificationModule.Init(aa.NotificationGui);
 	aa.Notify = function(aq, ar)
