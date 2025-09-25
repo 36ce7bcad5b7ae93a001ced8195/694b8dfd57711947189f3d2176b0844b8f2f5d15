@@ -2991,6 +2991,9 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 				function UpdatePosition()
 					local ap = an.UIElements.Dropdown;
 					local aq = an.UIElements.MenuCanvas;
+					if aq.Visible then
+						return
+					end
 					local ar = ((ae.ViewportSize.Y - (ap.AbsolutePosition.Y + ap.AbsoluteSize.Y)) - ak.MenuPadding) - 54;
 					local as = aq.AbsoluteSize.Y + ak.MenuPadding;
 					local at = -54;
@@ -5099,8 +5102,9 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 	aa.Localization = function(aq, ar)
 		return aa.LocalizationModule:New(ar, ai);
 	end;
-	aa.SetUIScale = function(scale)
-		if typeof(scale) ~= 'number' then warn(scale) return end
+	aa.SetUIScale = function(aq,scale)
+		if typeof(scale) ~= 'number' then scale = 1 end
+		if scale == 0 or scale > 1 or scale == nil then scale = 1 end
 		local v0 = a.load('a').GetScalingObjects()
 		for l,v in next,v0 do 
 			l.Scale = scale
