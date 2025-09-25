@@ -374,7 +374,7 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 				i.Frame = e("Frame", {Position=UDim2.new(1, -29, 0, 56),AnchorPoint=Vector2.new(1, 0),Size=g.Size,Parent=h,BackgroundTransparency=1}, {e("UIListLayout", {HorizontalAlignment="Center",SortOrder="LayoutOrder",VerticalAlignment="Bottom",Padding=UDim.new(0, 8)}),e("UIPadding", {PaddingBottom=UDim.new(0, 29)})});
 				return i;
 			end;
-			g.New = function(h) -- 
+			g.New = function(h)
 				local i = {Title=(h.Title or "Notification"),Content=(h.Content or nil),Icon=(h.Icon or nil),IconThemed=h.IconThemed,Background=h.Background,BackgroundImageTransparency=h.BackgroundImageTransparency,Duration=(h.Duration or 5),Buttons=(h.Buttons or {}),CanClose=true,UIElements={},Closed=false};
 				if (i.CanClose == nil) then
 					i.CanClose = true;
@@ -2677,13 +2677,6 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 				end
 				al.AnchorPoint = Vector2.new(1, 0);
 				al.Position = UDim2.new(1, 0, 0, 0);
-				-- ai.Set = function(ao, ap)
-				-- 	if aj then
-				-- 		am:Set(ao, ap);
-				-- 		ak = ao;
-				-- 		ai.Value = ao;
-				-- 	end
-				-- end;
                 ai.Set = function(an, ao)
                     if aj then
                         am:Set(ao);
@@ -3149,12 +3142,7 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 						af.AddConnection(aw.UIElements.TabItem,aw.UIElements.TabItem.MouseButton1Click, function()
 							if an.Multi then
 								if not aw.Selected then
-									aw.Selected = true;
-									-- ah(aw.UIElements.TabItem, 0.1, {ImageTransparency=0.95}):Play();
-									-- ah(aw.UIElements.TabItem.Highlight, 0.1, {ImageTransparency=0.75}):Play();
-									-- ah(aw.UIElements.TabItem.Frame.ImageLabel,0.1,{ImageTransparency=0.1}):Play();								
-									-- ah(aw.UIElements.TabItem.Frame.TextLabel, 0.1, {TextTransparency=0.05}):Play();
-									-- ah(aw.UIElements.TabItem.Frame.TextLabel,0.1,{Position=UDim2.new(0, 18 + ak.TabPadding + 2, 0.5, 0);}):Play();			
+									aw.Selected = true;		
 									aw.UIElements.TabItem.ImageTransparency=0.95
 									aw.UIElements.TabItem.Highlight.ImageTransparency=0.75
 									aw.UIElements.TabItem.Frame.ImageLabel.ImageTransparency=0.1								
@@ -3164,11 +3152,6 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 								else
 									local ay = an.Tabs[au]
 									if an.AllowNone and ay.Selected then
-										-- ah(ay.UIElements.TabItem, 0.1, {ImageTransparency=1}):Play();
-										-- ah(ay.UIElements.TabItem.Highlight, 0.1, {ImageTransparency=1}):Play();
-										-- ah(ay.UIElements.TabItem.Frame.TextLabel, 0.1, {TextTransparency=0.4}):Play();
-										-- ah(ay.UIElements.TabItem.Frame.ImageLabel,0.1,{ImageTransparency=1}):Play();
-										-- ah(ay.UIElements.TabItem.Frame.TextLabel,0.1,{Position=UDim2.new(0, 0, 0.5, 0)}):Play();	
 										ay.UIElements.TabItem.ImageTransparency=1
 										ay.UIElements.TabItem.Highlight.ImageTransparency=1
 										ay.UIElements.TabItem.Frame.TextLabel.TextTransparency=0.4
@@ -3188,18 +3171,11 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 										return;
 									end
 									aw.Selected = false;
-									-- ah(ay.UIElements.TabItem, 0.1, {ImageTransparency=1}):Play();
-									-- ah(ay.UIElements.TabItem.Highlight, 0.1, {ImageTransparency=1}):Play();
-									-- ah(ay.UIElements.TabItem.Frame.TextLabel, 0.1, {TextTransparency=0.4}):Play();
-									-- ah(ay.UIElements.TabItem.Frame.ImageLabel,0.1,{ImageTransparency=1}):Play();
-									-- ah(ay.UIElements.TabItem.Frame.TextLabel,0.1,{Position=UDim2.new(0, 0, 0.5, 0)}):Play();
-									
 									ay.UIElements.TabItem.ImageTransparency=1
 									ay.UIElements.TabItem.Highlight.ImageTransparency=1
 									ay.UIElements.TabItem.Frame.TextLabel.TextTransparency=0.4
 									ay.UIElements.TabItem.Frame.ImageLabel.ImageTransparency=1
-									ay.UIElements.TabItem.Frame.TextLabel.Position=UDim2.new(0, 0, 0.5, 0)									
-									
+									ay.UIElements.TabItem.Frame.TextLabel.Position=UDim2.new(0, 0, 0.5, 0)																		
 									for ax, ay in ipairs(an.Value) do
 										if (ay == aw.Name) then
 											table.remove(an.Value, ax);
@@ -3210,11 +3186,6 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 							else
 								local ay = an.Tabs[au]
 								if an.AllowNone and ay.Selected then
-									-- ah(ay.UIElements.TabItem, 0.1, {ImageTransparency=1}):Play();
-									-- ah(ay.UIElements.TabItem.Highlight, 0.1, {ImageTransparency=1}):Play();
-									-- ah(ay.UIElements.TabItem.Frame.TextLabel, 0.1, {TextTransparency=0.4}):Play();
-									-- ah(ay.UIElements.TabItem.Frame.ImageLabel,0.1,{ImageTransparency=1}):Play();
-									-- ah(ay.UIElements.TabItem.Frame.TextLabel,0.1,{Position=UDim2.new(0, 0, 0.5, 0)}):Play();	
 									ay.UIElements.TabItem.ImageTransparency=1
 									ay.UIElements.TabItem.Highlight.ImageTransparency=1
 									ay.UIElements.TabItem.Frame.TextLabel.TextTransparency=0.4
@@ -3226,11 +3197,6 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 									return
 								end
 								for ax, ay in next, an.Tabs do
-									-- ah(ay.UIElements.TabItem, 0.1, {ImageTransparency=1}):Play();
-									-- ah(ay.UIElements.TabItem.Highlight, 0.1, {ImageTransparency=1}):Play();
-									-- ah(ay.UIElements.TabItem.Frame.TextLabel, 0.1, {TextTransparency=0.5}):Play();
-									-- ah(ay.UIElements.TabItem.Frame.ImageLabel,0.1,{ImageTransparency=1}):Play();
-									-- ah(ay.UIElements.TabItem.Frame.TextLabel,0.1,{Position=UDim2.new(0, 0, 0.5, 0)}):Play();
 									ay.UIElements.TabItem.ImageTransparency=1
 									ay.UIElements.TabItem.Highlight.ImageTransparency=1
 									ay.UIElements.TabItem.Frame.TextLabel.TextTransparency=0.4
@@ -3239,12 +3205,6 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 									ay.Selected = false;
 								end
 								aw.Selected = true;
-								-- ah(aw.UIElements.TabItem, 0.1, {ImageTransparency=0.95}):Play();
-								-- ah(aw.UIElements.TabItem.Highlight, 0.1, {ImageTransparency=0.75}):Play();
-								-- ah(aw.UIElements.TabItem.Frame.ImageLabel,0.1,{ImageTransparency=0.1}):Play();								
-								-- ah(aw.UIElements.TabItem.Frame.TextLabel, 0.1, {TextTransparency=0.05}):Play();
-								-- ah(aw.UIElements.TabItem.Frame.TextLabel,0.1,{Position=UDim2.new(0, 18 + ak.TabPadding + 2, 0.5, 0);}):Play();
-
 								aw.UIElements.TabItem.ImageTransparency=0.95
 								aw.UIElements.TabItem.Highlight.ImageTransparency=0.75
 								aw.UIElements.TabItem.Frame.ImageLabel.ImageTransparency=0.1								
