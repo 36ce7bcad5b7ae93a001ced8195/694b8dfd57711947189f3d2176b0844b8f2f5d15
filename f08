@@ -1,7 +1,7 @@
 local main = {}
 main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 	local a;
-	local isStudio =game:GetService("RunService"):IsStudio() 
+	local isStudio =cacheman("RunService"):IsStudio() 
 	a = {cache={},load=function(b)
 		if not a.cache[b] then
 			a.cache[b] = {c=a[b]()};
@@ -21,6 +21,10 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 			local j = {Font="rbxassetid://12187365364",ScaleObjects={},Localization=nil,CanDraggable=true,Theme=nil,Themes=nil,Signals={},Connections={},Objects={},LocalizationObjects={},FontObjects={},Language=string.match(g.SystemLocaleId, "^[a-z]+"),Request=(scriptv('http_request') or (syn and syn.request) or scriptv('request')),DefaultProperties={ScreenGui={ResetOnSpawn=false,ZIndexBehavior="Sibling"},CanvasGroup={BorderSizePixel=0,BackgroundColor3=Color3.new(1, 1, 1)},Frame={BorderSizePixel=0,BackgroundColor3=Color3.new(1, 1, 1)},TextLabel={BackgroundColor3=Color3.new(1, 1, 1),BorderSizePixel=0,Text="",RichText=true,TextColor3=Color3.new(1, 1, 1),TextSize=14},TextButton={BackgroundColor3=Color3.new(1, 1, 1),BorderSizePixel=0,Text="",AutoButtonColor=false,TextColor3=Color3.new(1, 1, 1),TextSize=14},TextBox={BackgroundColor3=Color3.new(1, 1, 1),BorderColor3=Color3.new(0, 0, 0),ClearTextOnFocus=false,Text="",TextColor3=Color3.new(0, 0, 0),TextSize=14},ImageLabel={BackgroundTransparency=1,BackgroundColor3=Color3.new(1, 1, 1),BorderSizePixel=0},ImageButton={BackgroundColor3=Color3.new(1, 1, 1),BorderSizePixel=0,AutoButtonColor=false},UIListLayout={SortOrder="LayoutOrder"},ScrollingFrame={ScrollBarImageTransparency=1,BorderSizePixel=0},VideoFrame={BorderSizePixel=0}},Colors={Red="#e53935",Orange="#f57c00",Green="#43a047",Blue="#039be5",White="#ffffff",Grey="#484848"}};
 			j.Init = function(l)
 				i = l;
+			end;
+			j.Instance = function(l,s)
+				local x = isStudio and s or scriptv('cloneref')(s)
+				return x
 			end;
 			j.AddSignal = function(l, m)
 				local p = l:Connect(m);
@@ -176,7 +180,7 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 				return h.AddIcons(l, m);
 			end;
 			j.New = function(l, m, p)
-				local r = Instance.new(l);
+				local r = j:Instance(Instance.new(l));
 				for u, v in next, j.DefaultProperties[l] or {} do
 					r[u] = v;
 				end
@@ -209,6 +213,7 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 			end;
 			j.NewRoundFrame = function(l, m, p, r, x, z)
 				local function getImageForType(A)
+
 					return ((A == "Squircle") and "rbxassetid://80999662900595") or ((A == "SquircleOutline") and "rbxassetid://117788349049947") or ((A == "SquircleOutline2") and "rbxassetid://117817408534198") or ((A == "Squircle-Outline") and "rbxassetid://117817408534198") or ((A == "Shadow-sm") and "rbxassetid://84825982946844") or ((A == "Squircle-TL-TR") and "rbxassetid://73569156276236") or ((A == "Squircle-BL-BR") and "rbxassetid://93853842912264") or ((A == "Squircle-TL-TR-Outline") and "rbxassetid://136702870075563") or ((A == "Squircle-BL-BR-Outline") and "rbxassetid://75035847706564") or ((A == "Square") and "rbxassetid://82909646051652") or ((A == "Square-Outline") and "rbxassetid://72946211851948");
 				end
 				local function getSliceCenterForType(A)
@@ -1507,7 +1512,7 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 			local aa = a.load("a");
 			local ab = aa.New;
 			local ac, ad = unpack(a.load("n"));
-			local ae = Instance.new("Folder", cacheman("Workspace").CurrentCamera);
+			local ae = aa:Instance(Instance.new("Folder", cacheman("Workspace").CurrentCamera));
 			local function createAcrylic()
 				local af = ab("Part", {Name="Body",Color=Color3.new(0, 0, 0),Material=Enum.Material.Glass,Size=Vector3.new(1, 1, 0),Anchored=true,CanCollide=false,Locked=true,CastShadow=false,Transparency=0.98}, {ab("SpecialMesh", {MeshType=Enum.MeshType.Brick,Offset=Vector3.new(0, 0, -0.000001)})});
 				return af;
@@ -1616,7 +1621,7 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 		a.q = function()
 			local aa = {AcrylicBlur=a.load("o"),AcrylicPaint=a.load("p")};
 			aa.init = function()
-				local ab = Instance.new("DepthOfFieldEffect");
+				local ab = a.load("a"):Instance(Instance.new("DepthOfFieldEffect"));
 				ab.FarIntensity = 0;
 				ab.InFocusRadius = 0.1;
 				ab.NearIntensity = 1;
@@ -2301,7 +2306,29 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 					ak.Size = UDim2.new(1, 0, 0, ah);
 				end
 				if af.Image then
-					al = aa.Image(af.Image, af.Title, af.UICorner - 3, ae.Window.Folder, "Image", (not af.Color and true) or false);
+					local icon= aa.Icon(af.Image)
+					local x0 = (icon or (not af.Color and true) or false)
+					local x1 = x0 and {ImageColor3=(icon == nil and "Image" or "Icon")} or nil
+					al = a.load("a"):Instance(Instance.new('Frame'))
+					al.Size=UDim2.new(0, 0, 0, 0)
+					al.BackgroundTransparency=1					
+					local xl = a.load("a"):Instance(Instance.new("ImageLabel", al))
+					xl.Size=UDim2.new(1, 0, 1, 0)
+					xl.BackgroundTransparency=1
+					xl.ScaleType="Crop"
+					if icon then
+						al.ImageLabel:Destroy();
+						local G = aa.IconImage({Icon=af.Image,Size=UDim2.new(1, 0, 1, 0),Colors={(("Icon") or false),"Button"}}).IconFrame;
+						G.Parent = al;	
+						G:SetAttribute('type','Icon')
+					else
+						xl.Image = af.Image
+					end
+					if x1 then
+						aa.AddThemeObject(xl,x1)
+					end
+					local xk = a.load("a"):Instance(Instance.new("UICorner",xl))
+					xk.CornerRadius=UDim.new(0 ,af.UICorner - 3)					
 					if (typeof(af.Color) == "string") then
 						al.ImageLabel.ImageColor3 = GetTextColorForHSB(Color3.fromHex(aa.Colors[af.Color]));
 					elseif (typeof(af.Color) == "Color3") then
@@ -2309,7 +2336,7 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 					end
 					al.Size = UDim2.new(0, ag, 0, ag);
 					aj = ag;
-				end
+				end				
 				local function CreateText(am, an)
 					local ao = ((typeof(af.Color) == "string") and GetTextColorForHSB(Color3.fromHex(aa.Colors[af.Color]))) or ((typeof(af.Color) == "Color3") and GetTextColorForHSB(af.Color));
 					return ab("TextLabel", {BackgroundTransparency=1,Text=(am or ""),TextSize=(((an == "Desc") and 15) or 17),TextXAlignment="Left",ThemeTag={TextColor3=((not af.Color and "Text") or nil)},TextColor3=((af.Color and ao) or nil),TextTransparency=(((an == "Desc") and 0.3) or 0),TextWrapped=true,Size=UDim2.new(((af.Justify == "Between") and 1) or 0, 0, 0, 0),AutomaticSize=(((af.Justify == "Between") and "Y") or "XY"),FontFace=Font.new(aa.Font, ((an == "Desc") and Enum.FontWeight.Medium) or Enum.FontWeight.SemiBold)});
@@ -2406,6 +2433,16 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 					end
 				end;
 				af.SetImage = function(az, aA, aB, aC, aD)
+					local icon= aa.Icon(aA)
+					if al.ImageLabel:GetAttribute('type') == 'Icon' and not icon then
+						al.ImageLabel:Destroy()
+						local xl = aa:Instance(Instance.new("ImageLabel", al))
+						xl.Size=UDim2.new(1, 0, 1, 0)
+						xl.BackgroundTransparency=1
+						xl.ScaleType="Crop"		
+						local xk = aa:Instance(Instance.new("UICorner",xl))
+						xk.CornerRadius=UDim.new(0 ,af.UICorner - 3)
+					end
 					af.Image = aA;
 					if aB then
 						af.ImageSize = aB;
@@ -2419,8 +2456,8 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 					end
 					if al then
 						if aA then
-							al.Size = UDim2.new(0, ag, 0, ag);
-							aa.UpdateImage(al, aA, af.Title);
+							al.ImageLabel.Size = UDim2.new(0, ag, 0, ag);
+							al.ImageLabel.Image = aA
 							if (typeof(af.Color) == "string") then
 								al.ImageLabel.ImageColor3 = GetTextColorForHSB(Color3.fromHex(aa.Colors[af.Color]));
 							elseif (typeof(af.Color) == "Color3") then
@@ -2459,7 +2496,7 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 							b.Size = UDim2.new(1, -aj, 1, 0);
 						end
 					end
-				end;
+				end;				
 				af.Destroy = function(az)
 					ax:Destroy();
 				end;
@@ -3067,7 +3104,7 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 							Name="Highlight",
 							Parent = aw.UIElements.TabItem
 						})
-						local u0 = Instance.new('UIGradient',e0)
+						local u0 = af:Instance(Instance.new('UIGradient',e0))
 						u0.Name = 'u0Grad'
 						u0.Rotation=80
 						u0.Color=ColorSequence.new({
@@ -3081,15 +3118,15 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 							NumberSequenceKeypoint.new(1, 0.1)
 						})                                
 
-						local u1 = Instance.new('Frame',aw.UIElements.TabItem)
+						local u1 = af:Instance(Instance.new('Frame',aw.UIElements.TabItem))
 						u1.Size=UDim2.new(1, 0, 1, 0)
 						u1.BackgroundTransparency=1  
-						local u2 = Instance.new('UIPadding',u1)
+						local u2 =af:Instance(Instance.new('UIPadding',u1))
 						u2.PaddingLeft=UDim.new(0, ak.TabPadding)
 						u2.PaddingRight=UDim.new(0, ak.TabPadding)
-						local u3 = Instance.new('UICorner',u1)
+						local u3 = af:Instance(Instance.new('UICorner',u1))
 						u3.CornerRadius=UDim.new(0, ak.MenuCorner - ak.MenuPadding)
-						local icon = Instance.new("ImageLabel");
+						local icon = af:Instance(Instance.new("ImageLabel"));
 						icon.Image = checkIcon[1];
 						icon.ImageRectSize = checkIcon[2].ImageRectSize;
 						icon.ImageRectOffset = checkIcon[2].ImageRectPosition;
@@ -3102,7 +3139,7 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 						iconThemeTag = af.AddThemeObject(icon, {
 							ImageColor3 = "Text"
 						},av)					
-						local u4 = Instance.new('TextLabel',u1)
+						local u4 = af:Instance(Instance.new('TextLabel',u1))
 						u4.Text=av
 						u4.TextXAlignment="Left"
 						u4.FontFace=Font.new(af.Font, Enum.FontWeight.Regular)
@@ -3911,6 +3948,11 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 								aa:UpdateAllElementShapes(aa);
 								ar:Destroy();
 							end;
+							if ar.SetImage then
+								aq.SetImage = function(av,...)
+									ar:SetImage(...)
+								end
+							end							
 						end
 						af.AllElements[ao.Index] = aq;
 						aa.Elements[ao.Index] = aq;
@@ -5038,9 +5080,10 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 	local an = protectgui or (syn and syn.protect_gui) or function()
 	end;
 	local ao = isStudio and am:WaitForChild('PlayerGui') or (gethui and gethui()) or game.CoreGui;
-	aa.ScreenGui = aj("ScreenGui", {Name="WindUI",Parent=ao,IgnoreGuiInset=true,ScreenInsets="None"}, {a.load('a').AddUIScale(aj("UIScale", {Scale=aa.Scale})),aj("Folder", {Name="Window"}),aj("Folder", {Name="KeySystem"}),aj("Folder", {Name="Popups"}),aj("Folder", {Name="ToolTips"})});
-	aa.NotificationGui = aj("ScreenGui", {Name="WindUI/Notifications",Parent=ao,IgnoreGuiInset=true});
-	aa.DropdownGui = aj("ScreenGui", {Name="WindUI/Dropdowns",Parent=ao,IgnoreGuiInset=true});
+	aa.ContainerUUID = vdu()
+	aa.ScreenGui = aj("ScreenGui", {Name=aa.ContainerUUID,Parent=ao,IgnoreGuiInset=true,ScreenInsets="None"}, {a.load('a').AddUIScale(aj("UIScale", {Scale=aa.Scale})),aj("Folder", {Name="Window"}),aj("Folder", {Name="KeySystem"}),aj("Folder", {Name="Popups"}),aj("Folder", {Name="ToolTips"})});
+	aa.NotificationGui = aj("ScreenGui", {Name=vdu(),Parent=ao,IgnoreGuiInset=true});
+	aa.DropdownGui = aj("ScreenGui", {Name=vdu(),Parent=ao,IgnoreGuiInset=true});
 	an(aa.ScreenGui);
 	an(aa.NotificationGui);
 	an(aa.DropdownGui);
@@ -5234,4 +5277,5 @@ main.scriptv= function(vdu, selectedcolor, scriptv, cacheman)
 	end;
 	return aa;
 end
+
 return main
